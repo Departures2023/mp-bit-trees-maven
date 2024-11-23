@@ -1,24 +1,24 @@
 package edu.grinnell.csc207.util;
 
 public class BitTreeNode {
-  int bit;
+  String value;
   BitTreeNode leftNode;
   BitTreeNode rightNode;
 
-  public BitTreeNode(int bit) {
-    this.bit = bit;
+  public BitTreeNode(String value) {
+    this.value = value;
     this.leftNode = null;
     this.rightNode = null;
   }
 
-  public BitTreeNode(int bit, BitTreeNode leftNode, BitTreeNode rightNode) {
-    this.bit = bit;
+  public BitTreeNode(String value, BitTreeNode leftNode, BitTreeNode rightNode) {
+    this.value = value;
     this.leftNode = leftNode;
     this.rightNode = rightNode;
   }
 
-  public int getBit() {
-    return this.bit;
+  public String getValue() {
+    return this.value;
   }
 
   public BitTreeNode getLeftNode() {
@@ -29,8 +29,8 @@ public class BitTreeNode {
     return this.rightNode;
   }
 
-  public int setBit(int bit) {
-    return this.bit = bit;
+  public String setValue(String value) {
+    return this.value = value;
   }
 
   public BitTreeNode getLeftNode(BitTreeNode leftNode) {

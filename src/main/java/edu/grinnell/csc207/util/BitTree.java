@@ -34,15 +34,17 @@ public class BitTree {
 
   private void setHelper(String bits, String value, BitTreeNode root) {
     if (this.root == null) {
-      this.root = new BitTreeNode(null);
+      this.root = new BitTreeNode(null, new BitTreeNode(null), new BitTreeNode(null));
     }
     if (bits.length() == 0) {
-      root.setValue(value);
+      this.root.setValue(value);
     }
     String bit = bits.substring(0, 1);
     if (bit.equals("0")) {
+      this.root = this.root.getLeftNode();
       setHelper(bits.substring(1), value, root.getLeftNode());
     } else if (bit.equals("1")) {
+      this.root = this.root.getRightNode();
       setHelper(bits.substring(1), value, root.getRightNode());
     } else {
       throw new IndexOutOfBoundsException();
@@ -51,7 +53,7 @@ public class BitTree {
 
   private String getHelper(String bits, BitTreeNode root) {
     if (bits.length() == 0) {
-      return this.root.getValue();
+      return root.getValue();
     }
     String bit = bits.substring(0, 1);
     if (bit.equals("0")) {
@@ -87,14 +89,16 @@ public class BitTree {
    *
    */
   public void set(String bits, String value) {
+    BitTreeNode tmp = this.root;
     setHelper(bits, value, this.root);
+    this.root = tmp;
   } // set(String, String)
 
   /**
    *
    */
   public String get(String bits) {
-    return getHelper(bits, root);
+    return getHelper(bits, this.root);
   } // get(String, String)
 
   /**

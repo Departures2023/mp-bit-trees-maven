@@ -1,7 +1,6 @@
 package edu.grinnell.csc207.main;
 
 import java.io.PrintWriter;
-import java.util.Scanner;
 import edu.grinnell.csc207.util.BrailleAsciiTables;
 
 /**
@@ -13,9 +12,10 @@ public class BrailleASCII {
   // +------+
 
   /**
-   *
-   */
-  public static void main(String[] args) {
+     * @throws Exception
+     * @param args
+     */
+  public static void main(String[] args) throws Exception {
     PrintWriter pen = new PrintWriter(System.out, true);
     BrailleAsciiTables reference = new BrailleAsciiTables();
     String targetStr = args[0];
@@ -23,19 +23,19 @@ public class BrailleASCII {
     if (targetStr.equals("braille")) {
       char[] tmp = sourceStr.toCharArray();
       for (char ch : tmp) {
-        System.out.print(reference.toBraille(ch));
-      }
+        pen.print(reference.toBraille(ch));
+      } // for
       System.exit(0);
     } else if (targetStr.equals("ascii")) {
-      System.out.println(reference.toAscii(sourceStr));
+      pen.println(reference.toAscii(sourceStr));
       System.exit(0);
     } else if (targetStr.equals("unicode")) {
-      System.out.println(reference.toUnicode(sourceStr));
+      pen.println(reference.toUnicode(sourceStr));
       System.exit(0);
     } else {
       System.err.println("Invalid target character");
       System.exit(1);
-    }
+    } // if
 
     pen.close();
   } // main(String[]

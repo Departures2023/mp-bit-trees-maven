@@ -73,19 +73,19 @@ public class BitTree {
   private String getHelper(String bits, BitTreeNode root) {
     if (bits.length() == 0) {
       if (root == null) {
-        return "Trouble translating because No corresponding value";
+        return "Trouble translating because No corresponding value\n";
       } // if
       return root.getValue();
     } // if
     String bit = bits.substring(0, 1);
     if (bit.equals("0")) {
       if (root.getLeftNode() == null) {
-        return "Trouble translating because No corresponding value";
+        return "\nTrouble translating because No corresponding value";
       } // if
       return getHelper(bits.substring(1), root.getLeftNode());
     } else if (bit.equals("1")) {
       if (root.getRightNode() == null) {
-        return "Trouble translating because No corresponding value";
+        return "\nTrouble translating because No corresponding value";
       } // if
       return getHelper(bits.substring(1), root.getRightNode());
     } else {

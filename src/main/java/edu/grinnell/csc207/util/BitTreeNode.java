@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.util;
 
 /**
+ * @author Kevin Tang
  * Bit tree node.
  */
 public class BitTreeNode {

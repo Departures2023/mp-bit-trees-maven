@@ -7,35 +7,93 @@ import edu.grinnell.csc207.util.BrailleAsciiTables;
  *
  */
 public class BrailleASCII {
+
+  /**
+   * Convert string to braille.
+   *
+   * @param input input string
+   * @return the braille conversion of string
+   * @throws Exception if input string is invalid
+   */
+  static String convertToBraille(String input) throws Exception {
+    StringBuilder str = new StringBuilder();
+
+    for (char c : input.toCharArray()) {
+      str.append(BrailleAsciiTables.toBraille(c));
+    } // for
+
+    return str.toString();
+  } // convertToBraille(String)
+
+  /**
+   * Convert string to ASCII.
+   *
+   * @param input input string
+   * @return the ASCII conversion of string
+   * @throws Exception if input string is invalid
+   */
+  static String convertToASCII(String input) throws Exception {
+    StringBuilder str = new StringBuilder();
+    if (input.length() % 6 != 0) {
+      return "Invalid length of bit string";
+    }
+    for (int i = 0; i <= input.length() - 6; i += 6) {
+      str.append(BrailleAsciiTables.toAscii(input.substring(i, i + 6)));
+    } // for
+
+    return str.toString();
+  } // convertToASCII(String)
+
+  /**
+   * Convert string to Unicode.
+   *
+   * @param input input string
+   * @return the unicode conversion string
+   * @throws Exception if input string is invalid
+   */
+  static String convertToUnicode(String input) throws Exception {
+    StringBuilder str = new StringBuilder();
+
+    for (String bits : input.split(" ")) {
+      String braille = convertToBraille(bits);
+
+      for (int i = 0; i < braille.length(); i += 6) {
+        str.append(BrailleAsciiTables.toUnicode(braille.substring(i, i + 6)));
+      } // for
+      str.append(" ");
+    } // for
+
+    return str.toString();
+  } // convertToUnicode(String)
+
   // +------+--------------------------------------------------------
   // | Main |
   // +------+
 
   /**
-     * @throws Exception
-     * @param args
-     */
+   * @throws Exception
+   * @param args
+   */
   public static void main(String[] args) throws Exception {
     PrintWriter pen = new PrintWriter(System.out, true);
-    BrailleAsciiTables reference = new BrailleAsciiTables();
-    String targetStr = args[0];
-    String sourceStr = args[1];
-    if (targetStr.equals("braille")) {
-      char[] tmp = sourceStr.toCharArray();
-      for (char ch : tmp) {
-        pen.print(reference.toBraille(ch));
-      } // for
-      System.exit(0);
-    } else if (targetStr.equals("ascii")) {
-      pen.println(reference.toAscii(sourceStr));
-      System.exit(0);
-    } else if (targetStr.equals("unicode")) {
-      pen.println(reference.toUnicode(sourceStr));
-      System.exit(0);
-    } else {
-      System.err.println("Invalid target character");
-      System.exit(1);
+
+    if (args.length != 2) {
+      throw new Exception("Invalid length of bit string");
     } // if
+
+    switch (args[0].toLowerCase()) {
+      case "ascii":
+        pen.println(convertToASCII(args[1]));
+        break;
+      case "braille":
+        pen.println(convertToBraille(args[1]));
+        break;
+      case "unicode":
+        pen.println(convertToUnicode(args[1]));
+        break;
+      default:
+        throw new Exception("Trouble translating because No corresponding value");
+    } // switch
 
     pen.close();
   } // main(String[]

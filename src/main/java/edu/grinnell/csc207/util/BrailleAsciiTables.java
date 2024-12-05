@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  *
  *
- * @author Your Name Here
+ * @author Kevin Tang
  * @author Samuel A. Rebelsky
  */
 public class BrailleAsciiTables {
@@ -217,45 +217,6 @@ public class BrailleAsciiTables {
     return a2bTree.get(bits);
   } // toBrailleHelper
 
-  /**
-   * Helper function for toAscii.
-   * @param bits input Braille string
-   * @return ascii string
-   */
-  public static String toAsciiHelper(String bits) {
-    // Make sure we've loaded the braille-to-ASCII tree.
-    if (null == b2aTree) {
-      b2aTree = new BitTree(6);
-      InputStream b2aStream = new ByteArrayInputStream(b2a.getBytes());
-      b2aTree.load(b2aStream);
-      try {
-        b2aStream.close();
-      } catch (IOException e) {
-        // We don't care if we can't close the stream.
-      } // try/catch
-    } // if
-    return b2aTree.get(bits);
-  } // toAscii(String)
-
-  /**
-   * Helper function for toUnicode.
-   * @param bits input Braille string
-   * @return unicode string
-   */
-  public static String toUnicodeHelper(String bits) {
-    // Make sure we've loaded the braille-to-ASCII tree.
-    if (null == b2uTree) {
-      b2uTree = new BitTree(6);
-      InputStream b2uStream = new ByteArrayInputStream(b2u.getBytes());
-      b2uTree.load(b2uStream);
-      try {
-        b2uStream.close();
-      } catch (IOException e) {
-        // We don't care if we can't close the stream.
-      } // try/catch
-    } // if
-    return b2uTree.get(bits);
-  } // toUnicode(String)
 
   /**
    * Turning ascii to binary string.
@@ -275,7 +236,7 @@ public class BrailleAsciiTables {
   // +----------------+
 
   /**
-   * Transforming ascii to Braille.
+   * Convert ascii to Braille.
    * @param letter input ascii letter
    * @return Braille string
    */
@@ -284,60 +245,54 @@ public class BrailleAsciiTables {
   } // toBraille(char)
 
   /**
-   * Transforming Braille to ascii.
+   * Convert Braille to ascii.
    * @param bits input Braille string
    * @return ascii string
    * @throws Exception invalid length
    */
   public static String toAscii(String bits) throws Exception {
-    if ((bits.length() % 6) != 0) {
-      throw new Exception("Invalid length of bit string");
+    // Make sure we've loaded the braille-to-ASCII tree.
+    if (null == b2aTree) {
+      b2aTree = new BitTree(6);
+      InputStream b2aStream = new ByteArrayInputStream(b2a.getBytes());
+      b2aTree.load(b2aStream);
+      try {
+        b2aStream.close();
+      } catch (IOException e) {
+        // We don't care if we can't close the stream.
+      } // try/catch
     } // if
-    StringBuilder str = new StringBuilder();
-    int lb = 0;
-    int hb = 6;
-    while (hb <= bits.length()) {
-      str.append(toAsciiHelper(bits.substring(lb, hb)));
-      lb += 6;
-      hb += 6;
-    } // while
-    return str.toString();
+ 
+    try {
+      return b2aTree.get(bits);
+    } catch (Exception e) {
+      throw new Exception("Invalid length of bit string");
+    } // try/catch
   } // toAscii(String)
 
   /**
-   * Transforming Braille to unicode.
+   * Convert Braille to unicode.
    * @param bits input Braille string
    * @return unicode string
    * @throws Exception invalid length
    */
   public static String toUnicode(String bits) throws Exception {
-    if ((bits.length() % 6) != 0) {
-      throw new Exception("Invalid length of bit string");
+    // Make sure we've loaded the braille-to-Unicode tree.
+    if (null == b2uTree) {
+      b2uTree = new BitTree(6);
+      InputStream b2uStream = new ByteArrayInputStream(b2u.getBytes());
+      b2uTree.load(b2uStream);
+      try {
+        b2uStream.close();
+      } catch (IOException e) {
+        // We don't care if we can't close the stream.
+      } // try/catch
     } // if
-    StringBuilder str = new StringBuilder();
-    int lb = 0;
-    int hb = 6;
-    while (hb <= bits.length()) {
-      str.append(toUnicodeHelper(bits.substring(lb, hb)));
-      lb += 6;
-      hb += 6;
-    } // while
-    return str.toString();
+    try {
+      return new String(Character.toChars(Integer.parseInt(b2uTree.get(bits), 16)));
+    } catch (Exception e) {
+      throw new Exception("Invalid length of bit string");
+    } // try/catch
   } // toUnicode(String)
 
-  // StringBuilder str = new StringBuilder();
-  // char[] tmp = bits.toCharArray();
-  // for (char ch : tmp) {
-  //   str.append(toBraille(ch));
-  // }
-  // String source = str.toString();
-  // StringBuilder output = new StringBuilder();
-  // int lb = 0;
-  // int hb = 1;
-  // while (hb <= bits.length()) {
-  //   output.append(toUnicodeHelper(source.substring(lb, hb)));
-  //   lb += 1;
-  //   hb += 1;
-  // }
-  // return output.toString();
 } // BrailleAsciiTables

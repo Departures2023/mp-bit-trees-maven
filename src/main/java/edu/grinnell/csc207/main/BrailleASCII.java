@@ -51,8 +51,8 @@ public class BrailleASCII {
    */
   static String convertToUnicode(String input) throws Exception {
     StringBuilder str = new StringBuilder();
-
-    for (String bits : input.split(" ")) {
+    String[] arr = input.split(" ");
+    for (String bits : arr) {
       String braille = convertToBraille(bits);
       for (int i = 0; i < braille.length(); i += 6) {
         str.append(BrailleAsciiTables.toUnicode(braille.substring(i, i + 6)));
@@ -68,8 +68,8 @@ public class BrailleASCII {
   // +------+
 
   /**
-   * @throws Exception
-   * @param args
+   * @throws Exception Exception.
+   * @param args command line arguments.
    */
   public static void main(String[] args) throws Exception {
     PrintWriter pen = new PrintWriter(System.out, true);

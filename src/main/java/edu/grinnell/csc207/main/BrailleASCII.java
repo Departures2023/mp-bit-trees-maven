@@ -54,7 +54,7 @@ public class BrailleASCII {
     String[] arr = input.split(" ");
     for (String bits : arr) {
       String braille = convertToBraille(bits);
-      for (int i = 0; i < braille.length(); i += 6) {
+      for (int i = 0; i <= braille.length() - 6; i += 6) {
         str.append(BrailleAsciiTables.toUnicode(braille.substring(i, i + 6)));
       } // for
       str.append(" ");

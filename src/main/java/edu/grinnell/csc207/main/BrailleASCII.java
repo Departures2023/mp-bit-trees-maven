@@ -15,7 +15,7 @@ public class BrailleASCII {
    * @return the braille conversion of string
    * @throws Exception if input string is invalid
    */
-  static String convertToBraille(String input) throws Exception {
+  static String toBraille(String input) throws Exception {
     StringBuilder str = new StringBuilder();
 
     for (char c : input.toCharArray()) {
@@ -23,7 +23,7 @@ public class BrailleASCII {
     } // for
 
     return str.toString();
-  } // convertToBraille(String)
+  } // toBraille(String)
 
   /**
    * Convert string to ASCII.
@@ -32,7 +32,7 @@ public class BrailleASCII {
    * @return the ASCII conversion of string
    * @throws Exception if input string is invalid
    */
-  static String convertToASCII(String input) throws Exception {
+  static String toASCII(String input) throws Exception {
     StringBuilder str = new StringBuilder();
 
     for (int i = 0; i <= input.length() - 6; i += 6) {
@@ -40,7 +40,7 @@ public class BrailleASCII {
     } // for
 
     return str.toString();
-  } // convertToASCII(String)
+  } // toASCII(String)
 
   /**
    * Convert string to Unicode.
@@ -49,11 +49,11 @@ public class BrailleASCII {
    * @return the unicode conversion string
    * @throws Exception if input string is invalid
    */
-  static String convertToUnicode(String input) throws Exception {
+  static String toUnicode(String input) throws Exception {
     StringBuilder str = new StringBuilder();
     String[] arr = input.split(" ");
     for (String bits : arr) {
-      String braille = convertToBraille(bits);
+      String braille = toBraille(bits);
       for (int i = 0; i <= braille.length() - 6; i += 6) {
         str.append(BrailleAsciiTables.toUnicode(braille.substring(i, i + 6)));
       } // for
@@ -61,7 +61,7 @@ public class BrailleASCII {
     } // for
 
     return str.toString();
-  } // convertToUnicode(String)
+  } // toUnicode(String)
 
   // +------+--------------------------------------------------------
   // | Main |
@@ -78,15 +78,15 @@ public class BrailleASCII {
       throw new Exception("Invalid input length");
     } // if
 
-    switch (args[0].toLowerCase()) {
+    switch (args[0]) {
       case "ascii":
-        pen.println(convertToASCII(args[1]));
+        pen.println(toASCII(args[1]));
         break;
       case "braille":
-        pen.println(convertToBraille(args[1]));
+        pen.println(toBraille(args[1]));
         break;
       case "unicode":
-        pen.println(convertToUnicode(args[1]));
+        pen.println(toUnicode(args[1]));
         break;
       default:
         throw new Exception("Trouble translating because No corresponding value");

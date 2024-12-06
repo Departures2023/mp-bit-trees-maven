@@ -10,7 +10,9 @@ A mini-project exploring bit trees (a form of binary tree) and their use in tran
 **Acknowledgements**
 
 * I got help from other students and Sam in class.
-* Help from Garikai and Nicole in discussion
+* Help from evening tutor, Garikai and Nicole.
+* Help from https://www.reddit.com/r/learnjava/comments/88rbzh/convert_binary_to_string_in_java/
+* Help from https://www.daniweb.com/programming/software-development/threads/477895/ascii-to-binary
 
 
 **Instructions for use**

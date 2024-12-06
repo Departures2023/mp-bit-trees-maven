@@ -34,9 +34,7 @@ public class BrailleASCII {
    */
   static String convertToASCII(String input) throws Exception {
     StringBuilder str = new StringBuilder();
-    if (input.length() % 6 != 0) {
-      return "Invalid length of bit string";
-    }
+
     for (int i = 0; i <= input.length() - 6; i += 6) {
       str.append(BrailleAsciiTables.toAscii(input.substring(i, i + 6)));
     } // for
@@ -56,7 +54,6 @@ public class BrailleASCII {
 
     for (String bits : input.split(" ")) {
       String braille = convertToBraille(bits);
-
       for (int i = 0; i < braille.length(); i += 6) {
         str.append(BrailleAsciiTables.toUnicode(braille.substring(i, i + 6)));
       } // for
@@ -78,7 +75,7 @@ public class BrailleASCII {
     PrintWriter pen = new PrintWriter(System.out, true);
 
     if (args.length != 2) {
-      throw new Exception("Invalid length of bit string");
+      throw new Exception("Invalid input length");
     } // if
 
     switch (args[0].toLowerCase()) {

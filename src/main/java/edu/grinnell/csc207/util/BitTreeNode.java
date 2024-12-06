@@ -19,7 +19,7 @@ public class BitTreeNode {
   BitTreeNode rightNode;
 
   /**
-   * Constructor
+   * Constructor.
    * @param value value of current node
    */
   public BitTreeNode(String value) {

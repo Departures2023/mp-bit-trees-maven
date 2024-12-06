@@ -9,13 +9,13 @@ A mini-project exploring bit trees (a form of binary tree) and their use in tran
 
 **Acknowledgements**
 
-*
-*
-*
+* I got help from other students and Sam in class.
+* Help from Garikai and Nicole in discussion
+
 
 **Instructions for use**
 
-_Please insert instructions here._
+This program could be used for conversion between Ascii, Braille, and Unicode representation of string.
 
 ---
 

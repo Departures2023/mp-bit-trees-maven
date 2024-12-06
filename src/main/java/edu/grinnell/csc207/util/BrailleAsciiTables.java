@@ -262,7 +262,6 @@ public class BrailleAsciiTables {
         // We don't care if we can't close the stream.
       } // try/catch
     } // if
- 
     try {
       return b2aTree.get(bits);
     } catch (Exception e) {
